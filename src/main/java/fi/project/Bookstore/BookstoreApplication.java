@@ -5,8 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import fi.project.Bookstore.Models.Book;
-import fi.project.Bookstore.Models.BookRepository;
+import fi.project.Bookstore.domain.Book;
+import fi.project.Bookstore.domain.BookRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {

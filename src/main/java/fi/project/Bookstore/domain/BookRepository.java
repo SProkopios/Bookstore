@@ -1,4 +1,4 @@
-package fi.project.Bookstore.Models;
+package fi.project.Bookstore.domain;
 
 import org.springframework.data.repository.CrudRepository;
 
