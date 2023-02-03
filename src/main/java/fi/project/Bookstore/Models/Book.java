@@ -1,15 +1,28 @@
 package fi.project.Bookstore.Models;
 
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Book {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 	
 	private String title;
 	private String author;
-	private int publicationYear;
+	private String publicationYear;
 	private String isbn;
 	private double price;
 	
+	public Book() {}
 	
-	public Book(String title, String author, int publicationYear, String isbn, double price) {
+	public Book(String title, String author, String publicationYear, String isbn, double price) {
+		super();
 		this.title = title;
 		this.author = author;
 		this.publicationYear = publicationYear;
@@ -17,7 +30,15 @@ public class Book {
 		this.price = price;
 	}
 
-	public String getTitle() {
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+ 	public String getTitle() {
 		return title;
 	}
 
@@ -37,12 +58,12 @@ public class Book {
 	}
 
 
-	public int getPublicationYear() {
+	public String getPublicationYear() {
 		return publicationYear;
 	}
 
 
-	public void setPublicationYear(int publicationYear) {
+	public void setPublicationYear(String publicationYear) {
 		this.publicationYear = publicationYear;
 	}
 
