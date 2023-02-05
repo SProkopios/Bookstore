@@ -5,9 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Book {
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,11 +20,11 @@ public class Book {
 	private String author;
 	private String publicationYear;
 	private String isbn;
-	private double price;
+	private String price;
 	
 	public Book() {}
 	
-	public Book(String title, String author, String publicationYear, String isbn, double price) {
+	public Book(String title, String author, String publicationYear, String isbn, String price) {
 		super();
 		this.title = title;
 		this.author = author;
@@ -30,7 +33,7 @@ public class Book {
 		this.price = price;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	
@@ -78,12 +81,12 @@ public class Book {
 	}
 
 
-	public double getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
 
-	public void setPrice(double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 		
