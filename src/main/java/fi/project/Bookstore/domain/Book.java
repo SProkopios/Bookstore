@@ -2,6 +2,7 @@ package fi.project.Bookstore.domain;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,7 +12,11 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Book {
 	
+	@ManyToOne
+	@JoinColumn(name="categoryid")
+	private Category category;
 	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -24,21 +29,27 @@ public class Book {
 	
 	public Book() {}
 	
-	public Book(String title, String author, String publicationYear, String isbn, String price) {
+	public Book(String title, String author, String publicationYear, String isbn, String price, Category category) {
 		super();
 		this.title = title;
 		this.author = author;
 		this.publicationYear = publicationYear;
 		this.isbn = isbn;
 		this.price = price;
+		this.category = category;
 	}
 
 	public Long getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
-		this.id = id;
+	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
  	public String getTitle() {
