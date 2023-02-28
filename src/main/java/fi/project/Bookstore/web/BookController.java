@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +31,11 @@ public class BookController {
 	@RequestMapping("/booklist")
 	public String bookList(Model model) {
 		model.addAttribute("books", repository.findAll());
+		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = user.getUsername();
+		System.out.println("USERNAME: " + username);
+    	model.addAttribute("name", username);
 		return "booklist";
 	}
 	
@@ -49,12 +57,13 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(Book book) {
+	public String save(Book book, Model model) {
 		repository.save(book);
 		return "redirect:/booklist";
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteStudent(@PathVariable("id") Long bookId, Model model) {
 		repository.deleteById(bookId);
 		return "redirect:../booklist";
@@ -66,4 +75,19 @@ public class BookController {
 		model.addAttribute("categorys", crepository.findAll());
 		return "editbook";
 	}
+	 
+    
+    @RequestMapping(value="/hello")
+	public String helloSecure(Model model) {
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = user.getUsername();
+		System.out.println("USERNAME: " + username);
+    	model.addAttribute("name", username);
+		return "hello";
+	}
+    
+    @RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	} 
 }
